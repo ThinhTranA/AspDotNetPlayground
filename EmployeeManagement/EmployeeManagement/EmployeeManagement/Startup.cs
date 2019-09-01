@@ -29,10 +29,17 @@ namespace EmployeeManagement
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Use(async (context, next) =>
+            {
+                await context.Response
+                .WriteAsync("hello from 1st middleware");
+                await next();
+            });
+
             app.Run(async (context) =>
             {
                 await context.Response
-                .WriteAsync(_config["MyKey"]);
+                .WriteAsync("hello from 2nd middleware");
             });
         }
     }
