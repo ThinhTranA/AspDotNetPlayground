@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 
 namespace EmployeeManagement
@@ -27,7 +28,11 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+                {
+                    SourceCodeLineCount = 1
+                };
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
 
             FileServerOptions fileServerOptions = new FileServerOptions();
@@ -39,6 +44,7 @@ namespace EmployeeManagement
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error processing the request");
                 await context.Response.WriteAsync("Hello world");
             });
 
