@@ -1,12 +1,8 @@
 ﻿using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Diagnostics;
 
 namespace EmployeeManagement
 {
@@ -35,8 +31,11 @@ namespace EmployeeManagement
             }
           
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("defaut","{controller=Home}/{action=Index}/{id?}");
+            });
         
         }
     }
